@@ -1,28 +1,30 @@
-<template>
-  <div id="app">
-    <img alt="Vue logo" src="./assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
-  </div>
+<template lang="pug">
+div#app
+  div.w-full.max-w-2xl.mx-auto
+    app-gallery(v-if='items.length', :items='items')
+    app-form(@submit='submit')
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
+import AppForm from './components/AppForm.vue'
+import AppGallery from './components/AppGallery.vue'
 
 export default {
   name: 'app',
+  data() {
+    return {
+      items: []
+    }
+  },
   components: {
-    HelloWorld
+    AppForm,
+    AppGallery,
+  },
+  methods: {
+    submit(payload) {
+      if (!payload || this.items.length === 4) return
+      this.items.push(payload)
+    }
   }
 }
 </script>
-
-<style>
-#app {
-  font-family: 'Avenir', Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
-}
-</style>
